@@ -19,7 +19,7 @@ function App()
      onClick={()=>setTheme(!theme)}
     >
        {
-         theme ? 'dark mode': 'ligth mode'
+         theme ? 'ligth mode' : 'dark mode' 
        }
     </button>
     <ThemeContext.Provider value={theme ? 'dark': 'ligth mode'}>
