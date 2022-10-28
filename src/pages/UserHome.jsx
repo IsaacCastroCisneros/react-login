@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useContext} from 'react'
+import React,{useState,useEffect,useContext,useRef} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {useQuery} from 'react-query' 
 import axios from 'axios'
@@ -13,19 +13,13 @@ export default function UserHome()
 
   const url = "https://api.escuelajs.co/api/v1/products";
   const{data:products,isFetching} = useQuery(['products',url],getProducts)
+  const[resulsNum, setResulsNum] = useState(0);
 
   const{ref,inView}= useInView();
 
   useEffect(()=>
   {
-    /* const body = document.querySelector('body');
-    body.classList.remove(`${theme}`)
-    body.classList.add(`${theme}`) */
-  },[])
-
-  useEffect(()=>
-  {
-    
+    setResulsNum(prev=>prev+10)
   },[inView])
 
   async function getProducts({queryKey})
@@ -35,12 +29,14 @@ export default function UserHome()
   }
 
   return (
-    <main className={`pt-[2rem] px-[5rem] w-[95rem] max-w-[100%] my-0 mx-auto`}>
+    <main className={`pt-[2rem] px-[5rem] w-[95rem] max-w-[100%] my-0 mx-auto pb-[3rem]`}>
       <ProductsList products={products} 
                     userName={user} 
                     isFetching={isFetching} 
                     Spinner={<ScaleLoader color="#ea377a" height={80} width={10} />}
+                    resulsNum={resulsNum}
       />
+      <div ref={ref}></div>
     </main>
   );
 }
@@ -52,8 +48,11 @@ function ProductsList(props)
     products,
     userName,
     isFetching,
-    Spinner
+    Spinner,
+    resulsNum
   }=props
+
+  console.log(resulsNum)
 
    return (
      <>
@@ -64,7 +63,10 @@ function ProductsList(props)
        )}
        <div className="grid grid-cols-[repeat(auto-fill,minmax(15rem,1fr))] gap-[1rem]">
          {products?.map((product, pos) => {
-           return <Product key={pos} {...product} userName={userName} />;
+           if(pos<resulsNum)
+           {
+             return <Product key={pos} {...product} userName={userName} />;
+           }
          })}
        </div>
      </>
@@ -74,7 +76,7 @@ function ProductsList(props)
 function Product(props)
 {
   const {theme}=useContext(AppContext);
-  
+
    const
    {
      category,
