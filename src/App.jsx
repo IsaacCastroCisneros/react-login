@@ -11,7 +11,10 @@ function App()
 {
   const[theme,setTheme]=useState(true);
 
-  
+  useEffect(()=>
+  {
+    localStorage.getItem('')
+  },[])
 
   return (
    <>
@@ -28,7 +31,7 @@ function App()
           <Route index element={<Home />} />
           <Route path="user">
             <Route path=":id">
-              <Route index element={<UserHome />} />
+              <Route index element={true ? <UserHome />:<h1>not found</h1>} />
               <Route path=":id" element={<ProductPage />} />
             </Route>
           </Route>
