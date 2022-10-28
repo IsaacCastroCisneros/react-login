@@ -47,7 +47,7 @@ function Form()
          />
          <Input 
           name={'password'}
-          type={'text'}
+          type={'password'}
           placeholder={'Password'}
           min={6}
           max={50}

@@ -56,9 +56,7 @@ div,img
 
 body
 {
+    height: 100vh;
     background-color: #16181c;
-}
-main
-{
-    display: block;
+    /* color: rgb(158, 158, 250); */
 }

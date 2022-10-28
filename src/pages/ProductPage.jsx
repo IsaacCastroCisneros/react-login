@@ -20,30 +20,22 @@ export default function ProductPage()
     }
   
     return (
-        <main className={`${theme} flex justify-center items-center pt-[2rem] px-[5rem]`}>
-            <div className='flex w-[95rem] max-w-[100%] my-0 mx-auto'>
-              <img className='flex-[.8]' src={product?.category?.image} alt="" />
-              <section className='flex-1 pl-[2rem]'>
-                  <h1 className='font-bold text-[1.5rem] mb-[2rem]'>
-                     {
-                        product?.title
-                     }
-                  </h1>
-                  <p className='block mb-[2rem]'>
-                    {
-                        product?.description
-                    }
-                  </p>
-                  <strong className='block text-[2rem] mb-[2rem]'>
-                    {
-                        product?.price
-                    }$
-                  </strong>
-                  <button className='button w-[100%] py-[.2rem]'>
-                       Comprar
-                  </button>
-              </section>
-            </div>
+        <main
+          className={`${theme} flex justify-center items-center pt-[2rem] px-[5rem]`}
+        >
+          <div className="flex w-[95rem] max-w-[100%] my-0 mx-auto">
+            <img className="flex-[.8]" src={product?.category?.image} alt="" />
+            <section className="flex-1 pl-[2rem] flex-wrap">
+              <h1 className="font-bold text-[1.5rem] mb-[2rem]">
+                {product?.title}
+              </h1>
+              <p className="block mb-[2rem]">{product?.description}</p>
+              <strong className="block text-[2rem] mb-[2rem]">
+                {product?.price}$
+              </strong>
+              <button className="button py-[.5rem] px-[.9rem] text-[1.5rem]">Comprar</button>
+            </section>
+          </div>
         </main>
-    )
+    );
 }

@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import ProductPage from './pages/ProductPage'
 import UserHome from './pages/UserHome'
 import Layout from './components/Layout'
+import NotFound from './components/NotFound'
 
 export const AppContext =React.createContext()
 
@@ -15,9 +16,9 @@ function App()
 
   const contextValues=
   {
-    theme:theme ? 'dark': 'ligth mode',
     setUser,
-    contextUser:user
+    user,
+    theme:theme ? 'dark': 'ligth'
   }
 
   useEffect(()=>
@@ -32,23 +33,37 @@ function App()
     localStorage.setItem('user',JSON.stringify(user))
   },[user])
 
+  useEffect(()=>
+  {
+     const body = document.querySelector('body');
+
+     if(contextValues.theme==='dark')
+     {
+        body.classList.remove('ligth');
+        body.classList.add('dark');
+        
+        return
+     }
+
+     body.classList.remove('dark');
+     body.classList.add('ligth');
+  })
+
   return (
-   <>
     <AppContext.Provider value={contextValues}>
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="user" element={<Layout setTheme={setTheme} themeColor={theme}/>} >
             <Route path=":id">
-              <Route index element={user ? <UserHome />:<h1>not found</h1>}/>
-              <Route path=":id" element={user ? <ProductPage />:<h1>not found</h1>} />
+              <Route index element={user ? <UserHome />:<NotFound/>}/>
+              <Route path=":id" element={user ? <ProductPage />:<NotFound/>} />
             </Route>
           </Route>
           <Route path="login" element={<Login />} />
         </Route>
       </Routes>
      </AppContext.Provider>
-   </>
   );
 }
 

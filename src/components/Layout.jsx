@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Layout({setTheme,themeColor}) 
 {
   const navigate = useNavigate();
-  const{contextUser:user,theme,setUser}=useContext(AppContext)
+  const{user,theme,setUser}=useContext(AppContext)
 
   function logout()
   {
@@ -15,9 +15,9 @@ export default function Layout({setTheme,themeColor})
   }
 
   return (
-    <>
+    <header className={`${theme}`}>
       <nav
-        className={`${theme} flex justify-between pt-[1rem] px-[5rem] w-[95rem] max-w-[100%] my-0 mx-auto`}
+        className={`flex justify-between pt-[1rem] px-[5rem] w-[95rem] max-w-[100%] my-0 mx-auto`}
       >
         <h1 className="text-[3rem]">Welcome '{user}'</h1>
         <div className='flex gap-[2rem] items-center'>
@@ -35,6 +35,6 @@ export default function Layout({setTheme,themeColor})
         </div>
       </nav>
       <Outlet />
-    </>
+    </header>
   );
 }
