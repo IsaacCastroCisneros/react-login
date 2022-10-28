@@ -4,17 +4,23 @@ import {useQuery} from 'react-query'
 import axios from 'axios'
 import {useInView} from 'react-intersection-observer'
 
-import { ThemeContext } from '../App'
+import { AppContext } from '../App'
 
 export default function UserHome() 
 {
-  const theme =useContext(ThemeContext);
+  const {theme,contextUser:user}  =useContext(AppContext);
 
   const url = "https://api.escuelajs.co/api/v1/products";
-  const {id:userName}  = useParams()
   const{data:products} = useQuery(['products',url],getProducts)
 
   const{ref,inView}= useInView();
+
+  useEffect(()=>
+  {
+    /* const body = document.querySelector('body');
+    body.classList.remove(`${theme}`)
+    body.classList.add(`${theme}`) */
+  },[])
 
   useEffect(()=>
   {
@@ -28,11 +34,8 @@ export default function UserHome()
   }
 
   return (
-    <main className={`${theme} pt-[2rem] px-[5rem]`}>
-      <section className='flex justify-between'>
-        <h1 className="text-[3rem]">Welcome '{userName}'</h1>
-      </section>
-      <ProductsList products={products} userName={userName} />
+    <main className={`${theme} pt-[2rem] px-[5rem] w-[95rem] max-w-[100%] my-0 mx-auto`}>
+      <ProductsList products={products} userName={user} />
     </main>
   );
 }

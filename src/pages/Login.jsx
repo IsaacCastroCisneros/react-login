@@ -1,6 +1,6 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ThemeContext } from '../App'
+import { AppContext } from '../App'
 
 export default function Login() {
     return(
@@ -10,17 +10,28 @@ export default function Login() {
 
 function Form()
 {
-    const theme =useContext(ThemeContext);
+    const {theme,setUser}  =useContext(AppContext);
     const navigate = useNavigate()
 
     const[userParams,setUserParams]=useState({
         userName:undefined,
         password:undefined,
     })
+    
+    useEffect(()=>
+    {
+       
+    },[userParams])
 
+    function loginUser(e)
+    {
+       e.preventDefault();
+       setUser(userParams.userName)
+       navigate(`/user/${userParams.userName}`)
+    }
 
   return(
-    <main className={`${theme} flex w-[100%] justify-center`}  >
+    <main className={`${theme} flex w-[100%] justify-center`}  onSubmit={loginUser} >
       <form method='POST' className="flex flex-col w-[473px] max-w-[100%] gap-[1rem]" >
         <h1 className='title-form'>
            Login
@@ -45,7 +56,6 @@ function Form()
          />
           <button className='button py-[.3rem]' type='submit'
            style={{}}
-           onClick={()=>navigate(`/user/${userParams.userName}`)}
           >register</button>
       </form>
     </main>
@@ -76,6 +86,7 @@ function Input(props)
         min={min}
         maxLength={max}
         onChange={func}
+        required
       />
       {
         !errorMsg&&

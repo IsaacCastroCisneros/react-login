@@ -54,7 +54,11 @@ div,img
    color: #16181c;
 }
 
+body
+{
+    background-color: #16181c;
+}
 main
 {
-    height: 100%;
+    display: block;
 }

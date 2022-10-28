@@ -3,11 +3,11 @@ import {useQuery} from 'react-query' ;
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { ThemeContext } from '../App'
+import { AppContext } from '../App'
 
 export default function ProductPage() 
 {
-    const theme =useContext(ThemeContext);
+    const {theme} =useContext(AppContext);
 
     const {id}=useParams();
     const url = "https://api.escuelajs.co/api/v1/products/"+id;
@@ -21,7 +21,7 @@ export default function ProductPage()
   
     return (
         <main className={`${theme} flex justify-center items-center pt-[2rem] px-[5rem]`}>
-            <div className='flex w-[85rem] max-w-[100%] my-0 mx-auto'>
+            <div className='flex w-[95rem] max-w-[100%] my-0 mx-auto'>
               <img className='flex-[.8]' src={product?.category?.image} alt="" />
               <section className='flex-1 pl-[2rem]'>
                   <h1 className='font-bold text-[1.5rem] mb-[2rem]'>
